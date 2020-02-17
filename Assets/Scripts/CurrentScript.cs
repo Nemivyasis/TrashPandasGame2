@@ -29,6 +29,22 @@ public class CurrentScript : MonoBehaviour
 	/// </summary>
 	private Vector2 currentLine;
 
+	/// <summary>
+	/// the vertical buyancy force of the current line
+	/// </summary>
+	private Vector2 buyonacyLine;
+
+	private Collider2D col;
+
+	//this helps for testing
+	private void Reset()
+	{
+		Start();
+		points.AddRange(edgeCollider.points);
+		lineRenderer.positionCount = points.Count;
+		ConfirmList();
+	}
+
 	private void Start()
 	{
 		edgeCollider = GetComponent<EdgeCollider2D>();
@@ -129,14 +145,30 @@ public class CurrentScript : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		SetCurrentPoint(DetermineCurrentPoint());
+		col = collision;
 	}
 
+
+	/// <summary>
+	/// set the current point
+	/// </summary>
+	/// <param name="index">the index of the current point to set</param>
 	private void SetCurrentPoint(int index)
 	{
 		if (index >= 0)
 		{
 			currentPoint = index;
 			currentLine = points[currentPoint + 1] - points[currentPoint];
+
+			//calculate the buyancy line
+			Vector2 perp = new Vector2(-currentLine.y, currentLine.x);
+			buyonacyLine = (Vector2.Dot(Physics2D.gravity*0.1f,perp)/perp.sqrMagnitude)*perp*-1;
+			//im goin to third the velocity against the perpendicular, this is to try and keep it in the line 
+			Vector2 cv = col.GetComponent<Rigidbody2D>().velocity;
+			Vector2 force = (Vector2.Dot(cv, perp) / perp.sqrMagnitude) * perp * -1;
+			force /= 2;
+			col.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
+
 		}
 	}
 
@@ -150,6 +182,16 @@ public class CurrentScript : MonoBehaviour
 				SetCurrentPoint(currentPoint + 1);
 			}
 		}
-		collision.GetComponent<Rigidbody2D>().AddForce(currentLine.normalized * 3);
+		collision.GetComponent<Rigidbody2D>().AddForce((currentLine.normalized * 3)+buyonacyLine);
 	}
+
+	/*
+	private void OnDrawGizmos()
+	{
+		if (col != null)
+		{
+			Gizmos.color = Color.blue;
+			Gizmos.DrawLine(col.bounds.center, col.bounds.center + new Vector3(buyonacyLine.x,buyonacyLine.y));
+		}
+	}*/
 }
