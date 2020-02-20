@@ -16,6 +16,8 @@ public class CurrentScript : MonoBehaviour
 
 	public float speed = 3.0f;
 
+	public float MinDist = 0.01f;
+
 	[SerializeField]
 	private List<Vector2> points;
 
@@ -61,9 +63,11 @@ public class CurrentScript : MonoBehaviour
 	/// <param name="point">point to add</param>
 	public void AddPoint(Vector2 point)
 	{
-		points.Add(point);
-		lineRenderer.positionCount = points.Count;
-		lineRenderer.SetPosition(points.Count - 1, new Vector3(point.x, point.y));
+		if(!points.Contains(point)){
+			points.Add(point);
+			lineRenderer.positionCount = points.Count;
+			lineRenderer.SetPosition(points.Count - 1, new Vector3(point.x, point.y));
+		}
 	}
 
 	/// <summary>
@@ -72,12 +76,28 @@ public class CurrentScript : MonoBehaviour
 	public void ConfirmList()
 	{
 		///TODO: add function to remove unnecessary points
-
+		///
+		float minDistSqr = MinDist* MinDist;
+		//bool shortening = false;
+		int index = 0;
+		while (!(points.Count < 4 || index == points.Count - 1))
+		{
+			float dist = (points[index + 1] - points[index]).sqrMagnitude;
+			if(dist < minDistSqr)
+			{
+				points.RemoveAt(index + 1);
+			}
+			else
+			{
+				index++;
+			}
+		}
 		Vector3[] positions = new Vector3[points.Count];
 		for(int i = 0; i < points.Count; i++)
 		{
 			positions[i] = new Vector3(points[i].x, points[i].y, 0);
 		}
+		lineRenderer.positionCount = points.Count;
 		lineRenderer.SetPositions(positions);
 		edgeCollider.points = points.ToArray();
 	}
@@ -164,11 +184,13 @@ public class CurrentScript : MonoBehaviour
 			Vector2 perp = new Vector2(-currentLine.y, currentLine.x);
 			buyonacyLine = (Vector2.Dot(Physics2D.gravity*0.1f,perp)/perp.sqrMagnitude)*perp*-1;
 			//im goin to third the velocity against the perpendicular, this is to try and keep it in the line 
-			Vector2 cv = col.GetComponent<Rigidbody2D>().velocity;
-			Vector2 force = (Vector2.Dot(cv, perp) / perp.sqrMagnitude) * perp * -1;
-			force /= 2;
-			col.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
-
+			if (col != null)
+			{
+				Vector2 cv = col.GetComponent<Rigidbody2D>().velocity;
+				Vector2 force = (Vector2.Dot(cv, perp) / perp.sqrMagnitude) * perp * -1;
+				force /= 2;
+				col.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
+			}
 		}
 	}
 
