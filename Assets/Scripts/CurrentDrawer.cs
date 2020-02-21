@@ -43,6 +43,10 @@ public class CurrentDrawer : MonoBehaviour
         if(Time.time - timeAtLastPoint > timeBetweenPoints)
         {
             Vector3 pointerPos = eventData.pointerCurrentRaycast.worldPosition;
+
+            if (pointerPos == Vector3.zero) 
+                return;
+
             pointerPos.z = 0;
             lineRenderScript.AddPoint(pointerPos);
             timeAtLastPoint = Time.time;
