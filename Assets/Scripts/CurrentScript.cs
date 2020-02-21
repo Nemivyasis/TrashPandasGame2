@@ -188,7 +188,7 @@ public class CurrentScript : MonoBehaviour
 			{
 				Vector2 cv = col.GetComponent<Rigidbody2D>().velocity;
 				Vector2 force = (Vector2.Dot(cv, perp) / perp.sqrMagnitude) * perp * -1;
-				force /= 2;
+				//force /= 2;
 				col.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
 			}
 		}

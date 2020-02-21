@@ -1327,8 +1327,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press and drag finger from Jellyfish to anywhere on the screen to draw a
-    current.
+  m_Text: Press and drag anywhere on the screen to draw a current that will move the
+    jellyfish.
 --- !u!1 &5623753821567004897
 GameObject:
   m_ObjectHideFlags: 0
