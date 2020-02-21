@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09f920a702f7d3a45af76e95ee01ee5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenPoints: 0.1
+  timeBetweenPoints: 0.01
   lineRenderScript: {fileID: 1702357199}
 --- !u!114 &828755799
 MonoBehaviour:
