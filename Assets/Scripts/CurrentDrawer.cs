@@ -44,8 +44,11 @@ public class CurrentDrawer : MonoBehaviour
         {
             Vector3 pointerPos = eventData.pointerCurrentRaycast.worldPosition;
 
-            if (pointerPos == Vector3.zero) 
+            if (pointerPos == Vector3.zero || Physics2D.Raycast(pointerPos, new Vector2(0, 1), 0.001f, 1 << 9))
+            {
+                lineRenderScript.ConfirmList();
                 return;
+            }
 
             pointerPos.z = 0;
             lineRenderScript.AddPoint(pointerPos);
