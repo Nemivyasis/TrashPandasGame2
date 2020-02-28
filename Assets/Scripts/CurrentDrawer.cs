@@ -8,21 +8,22 @@ public class CurrentDrawer : MonoBehaviour
     [SerializeField]
     private float timeBetweenPoints = 0.1f;
 
-    [SerializeField]
+    //[SerializeField]
     private CurrentScript lineRenderScript;
 
     private float timeAtLastPoint = 0;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public GameObject currentPrefab;
+
+    public void Start()
     {
-        
+        CreateNewCurrent();
+    }
+   
+    public void CreateNewCurrent()
+    {
+        GameObject current = Instantiate(currentPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        lineRenderScript = current.GetComponent<CurrentScript>();
     }
 
     public void Drag(BaseEventData data)
@@ -35,7 +36,16 @@ public class CurrentDrawer : MonoBehaviour
     {
         PointerEventData eventData = (PointerEventData)data;
         AddPoint(eventData);
-        lineRenderScript.ConfirmList();
+        EndCurrent();
+    }
+
+    public void EndCurrent()
+    {
+        if (lineRenderScript.GetCurrentCount() != 0)
+        {
+            lineRenderScript.ConfirmList();
+            CreateNewCurrent();
+        }
     }
 
     private void AddPoint(PointerEventData eventData)
@@ -46,7 +56,7 @@ public class CurrentDrawer : MonoBehaviour
 
             if (pointerPos == Vector3.zero || Physics2D.Raycast(pointerPos, new Vector2(0, 1), 0.001f, 1 << 9))
             {
-                lineRenderScript.ConfirmList();
+                EndCurrent();
                 return;
             }
 

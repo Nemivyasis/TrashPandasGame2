@@ -216,4 +216,9 @@ public class CurrentScript : MonoBehaviour
 			Gizmos.DrawLine(col.bounds.center, col.bounds.center + new Vector3(buyonacyLine.x,buyonacyLine.y));
 		}
 	}*/
+
+	public int GetCurrentCount()
+	{
+		return points.Count;
+	}
 }
