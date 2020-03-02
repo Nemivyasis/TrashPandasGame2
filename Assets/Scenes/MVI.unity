@@ -265,7 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenPoints: 0.01
-  lineRenderScript: {fileID: 1702357199}
+  currentPrefab: {fileID: 6730791154299166478, guid: 1080bf2c8ccf887418e2a795443d419c,
+    type: 3}
 --- !u!114 &828755799
 MonoBehaviour:
   m_ObjectHideFlags: 0
