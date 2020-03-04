@@ -14,7 +14,13 @@ public class CurrentScript : MonoBehaviour
 	/// </summary>
 	public float castRadius = 0.75f;
 
-	public float speed = 3.0f;
+	public float maxSpeed = 5.0f;
+
+	public float minSpeed = 3.0f;
+
+	private float minLength = 0.5f;
+
+	private float maxLength = 3.0f;
 
 	public float MinDist = 0.01f;
 
@@ -37,6 +43,10 @@ public class CurrentScript : MonoBehaviour
 	private Vector2 buyonacyLine;
 
 	private Collider2D col;
+
+	private float length = 0;
+
+	private float speecd = 0;
 
 	//this helps for testing
 	private void Reset()
@@ -75,8 +85,6 @@ public class CurrentScript : MonoBehaviour
 	/// </summary>
 	public void ConfirmList()
 	{
-		///TODO: add function to remove unnecessary points
-		///
 		float minDistSqr = MinDist* MinDist;
 		//bool shortening = false;
 		int index = 0;
@@ -92,14 +100,21 @@ public class CurrentScript : MonoBehaviour
 				index++;
 			}
 		}
+
+		length = 0;
 		Vector3[] positions = new Vector3[points.Count];
 		for(int i = 0; i < points.Count; i++)
 		{
 			positions[i] = new Vector3(points[i].x, points[i].y, 0);
+			if(i != 0)
+			{
+				length += (positions[i-1]+positions[i]).magnitude;
+			}
 		}
 		lineRenderer.positionCount = points.Count;
 		lineRenderer.SetPositions(positions);
 		edgeCollider.points = points.ToArray();
+
 	}
 
 	/// <summary>
@@ -204,7 +219,7 @@ public class CurrentScript : MonoBehaviour
 				SetCurrentPoint(currentPoint + 1);
 			}
 		}
-		collision.GetComponent<Rigidbody2D>().AddForce((currentLine.normalized * 3)+buyonacyLine);
+		collision.GetComponent<Rigidbody2D>().AddForce((currentLine.normalized * minSpeed)+buyonacyLine);
 	}
 
 	/*
