@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 335019724}
   - component: {fileID: 335019723}
   - component: {fileID: 335019728}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: DragCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 993712918}
   - component: {fileID: 993712917}
   - component: {fileID: 993712916}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
