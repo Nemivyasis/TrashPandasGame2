@@ -24,6 +24,8 @@ public class CurrentScript : MonoBehaviour
 
 	public float MinDist = 0.01f;
 
+	public float DestroyTime = 7.5f;
+
 	[SerializeField]
 	private List<Vector2> points;
 
@@ -48,6 +50,10 @@ public class CurrentScript : MonoBehaviour
 
 	private float speed = 0;
 
+	private float clock = 0;
+
+	private bool pushing = true;
+
 	//this helps for testing
 	private void Reset()
 	{
@@ -64,6 +70,35 @@ public class CurrentScript : MonoBehaviour
 		if (points == null)
 		{
 			points = new List<Vector2>();
+		}
+	}
+
+	private void Update()
+	{
+		if (!pushing)
+		{
+			clock += Time.deltaTime;
+			float per = (DestroyTime - clock) / DestroyTime;
+			Debug.Log((DestroyTime - clock) / DestroyTime);
+			/*Color c = new Color(1,1,1, (DestroyTime - clock) / DestroyTime);
+			lineRenderer.startColor = c;
+			lineRenderer.endColor = c;*/
+			//GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+			Gradient g = lineRenderer.colorGradient;
+
+			/*alphaKey[0].alpha = (((DestroyTime - clock) / DestroyTime));
+			alphaKey[0].time = 0;
+			alphaKey[1].alpha = (((DestroyTime - clock) / DestroyTime));
+			alphaKey[1].time = 1;*/
+			//g.SetKeys(g.colorKeys, alphaKey);
+			g.SetKeys(g.colorKeys, new GradientAlphaKey[] { new GradientAlphaKey(per, 0), new GradientAlphaKey(per, 1) });
+			//g.alphaKeys[1] = new GradientAlphaKey(((DestroyTime - clock) / DestroyTime), 1);
+			//lineRenderer.colorGradient = g;
+			lineRenderer.colorGradient = g;
+			if (clock >= DestroyTime)
+			{
+				Destroy(gameObject);
+			}
 		}
 	}
 
@@ -118,7 +153,7 @@ public class CurrentScript : MonoBehaviour
 		lineRenderer.positionCount = points.Count;
 		lineRenderer.SetPositions(positions);
 		edgeCollider.points = points.ToArray();
-
+		pushing = false;
 	}
 
 	/// <summary>
@@ -186,6 +221,8 @@ public class CurrentScript : MonoBehaviour
 	{
 		SetCurrentPoint(DetermineCurrentPoint());
 		col = collision;
+		pushing = true;
+		clock = 0;
 	}
 
 
@@ -245,10 +282,10 @@ public class CurrentScript : MonoBehaviour
 		}
 	}
 
-	/*private void OnTriggerExit2D(Collider2D collision)
+	private void OnTriggerExit2D(Collider2D collision)
 	{
-		Debug.Log("end");
-	}*/
+		pushing = false;
+	}
 
 	/*
 	private void OnDrawGizmos()
