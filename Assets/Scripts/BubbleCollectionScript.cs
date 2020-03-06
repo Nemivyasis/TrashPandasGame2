@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ItemCollectionScript : MonoBehaviour
+public class BubbleCollectionScript : MonoBehaviour
 {
     int score = 0;
+    public Text label;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        
+        if (collider.gameObject.tag == "Bubble")
+        {
+            score += 100;
+            collider.gameObject.SetActive(false);
+            UpdateScore(score);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void UpdateScore(int score)
     {
-        
-    }
-
-    public void OnCollisionEnter(Collider other)
-    {
-
+        label.text = ""+score;
     }
 }
