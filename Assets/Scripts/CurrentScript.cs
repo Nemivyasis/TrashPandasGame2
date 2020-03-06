@@ -18,9 +18,9 @@ public class CurrentScript : MonoBehaviour
 
 	public float minSpeed = 3.0f;
 
-	private float minLength = 0.5f;
+	public float minLength = 0.5f;
 
-	private float maxLength = 3.0f;
+	public float maxLength = 8.0f;
 
 	public float MinDist = 0.01f;
 
@@ -30,7 +30,7 @@ public class CurrentScript : MonoBehaviour
 	/// <summary>
 	/// the index of the current point we are between
 	/// </summary>
-	private int currentPoint;
+	private int currentPoint = -1;
 
 	/// <summary>
 	/// the line we are currently on
@@ -46,7 +46,7 @@ public class CurrentScript : MonoBehaviour
 
 	private float length = 0;
 
-	private float speecd = 0;
+	private float speed = 0;
 
 	//this helps for testing
 	private void Reset()
@@ -61,7 +61,7 @@ public class CurrentScript : MonoBehaviour
 	{
 		edgeCollider = GetComponent<EdgeCollider2D>();
 		lineRenderer = GetComponent<LineRenderer>();
-		if(points == null)
+		if (points == null)
 		{
 			points = new List<Vector2>();
 		}
@@ -73,7 +73,8 @@ public class CurrentScript : MonoBehaviour
 	/// <param name="point">point to add</param>
 	public void AddPoint(Vector2 point)
 	{
-		if(!points.Contains(point)){
+		if (!points.Contains(point))
+		{
 			points.Add(point);
 			lineRenderer.positionCount = points.Count;
 			lineRenderer.SetPosition(points.Count - 1, new Vector3(point.x, point.y));
@@ -85,13 +86,13 @@ public class CurrentScript : MonoBehaviour
 	/// </summary>
 	public void ConfirmList()
 	{
-		float minDistSqr = MinDist* MinDist;
+		float minDistSqr = MinDist * MinDist;
 		//bool shortening = false;
 		int index = 0;
 		while (!(points.Count < 4 || index == points.Count - 1))
 		{
 			float dist = (points[index + 1] - points[index]).sqrMagnitude;
-			if(dist < minDistSqr)
+			if (dist < minDistSqr)
 			{
 				points.RemoveAt(index + 1);
 			}
@@ -103,14 +104,17 @@ public class CurrentScript : MonoBehaviour
 
 		length = 0;
 		Vector3[] positions = new Vector3[points.Count];
-		for(int i = 0; i < points.Count; i++)
+		for (int i = 0; i < points.Count; i++)
 		{
 			positions[i] = new Vector3(points[i].x, points[i].y, 0);
-			if(i != 0)
+			if (i != 0)
 			{
-				length += (positions[i-1]+positions[i]).magnitude;
+				length += (positions[i - 1] - positions[i]).magnitude;
 			}
 		}
+		length = Mathf.Clamp(length, minLength, maxLength);
+		speed = maxSpeed + (length - minLength) / (maxLength - minLength) * (minSpeed - maxSpeed);
+		//Debug.Log(speed);
 		lineRenderer.positionCount = points.Count;
 		lineRenderer.SetPositions(positions);
 		edgeCollider.points = points.ToArray();
@@ -123,10 +127,11 @@ public class CurrentScript : MonoBehaviour
 	/// <returns>the index of the first point the player is between</returns>
 	public int DetermineCurrentPoint()
 	{
-		for(int i = 0; i < points.Count -1; i++)
+		for (int i = 0; i < points.Count - 1; i++)
 		{
 			if (LinecastAtPoint(i))
 			{
+				//Debug.Log(i);
 				return i;
 			}
 		}
@@ -158,7 +163,7 @@ public class CurrentScript : MonoBehaviour
 		int hit = 0;
 		int layerMask = (1 << 8);
 		hit += Physics2D.LinecastNonAlloc(points[index], points[index + 1], rays, layerMask);
-		if(hit > 0&&(col == null||rays[0].collider == col))
+		if (hit > 0 && (col == null || rays[0].collider == col))
 		{
 			return true;
 		}
@@ -197,7 +202,7 @@ public class CurrentScript : MonoBehaviour
 
 			//calculate the buyancy line
 			Vector2 perp = new Vector2(-currentLine.y, currentLine.x);
-			buyonacyLine = (Vector2.Dot(Physics2D.gravity*0.1f,perp)/perp.sqrMagnitude)*perp*-1;
+			buyonacyLine = (Vector2.Dot(Physics2D.gravity * 0.1f, perp) / perp.sqrMagnitude) * perp * -1;
 			//im goin to third the velocity against the perpendicular, this is to try and keep it in the line 
 			if (col != null)
 			{
@@ -211,24 +216,56 @@ public class CurrentScript : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		if (currentPoint < points.Count - 2)
+		if (currentPoint != -1)
 		{
-			float distance = (new Vector2(collision.bounds.center.x, collision.bounds.center.y) - points[currentPoint]).sqrMagnitude;
-			if (distance > currentLine.sqrMagnitude)
+			if (currentPoint < points.Count - 2)
 			{
-				SetCurrentPoint(currentPoint + 1);
+				Vector2 proj = (currentLine * (Vector2.Dot(new Vector2(collision.bounds.center.x, collision.bounds.center.y)-points[currentPoint], currentLine) / currentLine.sqrMagnitude));
+				//Debug.Log(proj);
+				//Debug.Log(currentLine);
+				//float distance = (currentLine * (Vector2.Dot(new Vector2(collision.bounds.center.x, collision.bounds.center.y), currentLine) / currentLine.sqrMagnitude)).sqrMagnitude;
+				//float distance = (new Vector2(collision.bounds.center.x, collision.bounds.center.y) - points[currentPoint]).sqrMagnitude;
+				//float distance = (proj - points[currentPoint]).sqrMagnitude;
+				float distance = proj.sqrMagnitude;
+				if (distance > length)
+				{
+					//Debug.Log("test");
+					SetCurrentPoint(DetermineCurrentPoint());
+				}
+				else if (distance > currentLine.sqrMagnitude)
+				{
+					SetCurrentPoint(currentPoint + 1);
+				}
 			}
+			collision.GetComponent<Rigidbody2D>().AddForce((currentLine.normalized * speed)+buyonacyLine/2);
 		}
-		collision.GetComponent<Rigidbody2D>().AddForce((currentLine.normalized * minSpeed)+buyonacyLine);
+		else
+		{
+			SetCurrentPoint(DetermineCurrentPoint());
+		}
 	}
+
+	/*private void OnTriggerExit2D(Collider2D collision)
+	{
+		Debug.Log("end");
+	}*/
 
 	/*
 	private void OnDrawGizmos()
 	{
+		if (currentPoint != -1 && points.Count > 3)
+		{
+			Gizmos.color = Color.green;
+			Gizmos.DrawLine(new Vector3(points[currentPoint].x, points[currentPoint].y), new Vector3(points[currentPoint + 1].x, points[currentPoint + 1].y));
+		}
 		if (col != null)
 		{
-			Gizmos.color = Color.blue;
-			Gizmos.DrawLine(col.bounds.center, col.bounds.center + new Vector3(buyonacyLine.x,buyonacyLine.y));
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine(new Vector3(points[currentPoint].x, points[currentPoint].y), new Vector3(points[currentPoint + 1].x, points[currentPoint + 1].y));
+			Vector2 proj = (currentLine * (Vector2.Dot(new Vector2(col.bounds.center.x, col.bounds.center.y), currentLine) / currentLine.sqrMagnitude));
+			Gizmos.color = Color.yellow;
+			//Gizmos.DrawLine()
+			//Gizmos.DrawLine(new Vector3(points[currentPoint].x, points[currentPoint].y), new Vector3(points[currentPoint].x+proj.x, points[currentPoint].y+proj.y));
 		}
 	}*/
 

@@ -156,6 +156,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castRadius: 0.75
-  speed: 3
-  MinDist: 0.01
+  maxSpeed: 10
+  minSpeed: 3
+  minLength: 0.5
+  maxLength: 8
+  MinDist: 0.05
   points: []
