@@ -835,6 +835,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8890288046572556101, guid: 2e068d7a71858eb4195316aa5c6b284d,
+        type: 3}
+      propertyPath: nextScene
+      value: UIManagerScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e068d7a71858eb4195316aa5c6b284d, type: 3}
 --- !u!1 &283661524
@@ -5230,6 +5235,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1555908398485051043, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555908398485051043, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555908398485051043, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555908398485051043, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555908398485051043, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1555908398485051043, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2660865221731919227, guid: 9d29f0a4077eac54db334d3fef340137,
         type: 3}
       propertyPath: m_Name
@@ -5340,6 +5375,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7853424727157547198, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7853424727157547198, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 50.244995
+      objectReference: {fileID: 0}
     - target: {fileID: 8739266514270277816, guid: 9d29f0a4077eac54db334d3fef340137,
         type: 3}
       propertyPath: m_Camera
@@ -5349,6 +5394,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764517269517317732, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764517269517317732, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764517269517317732, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764517269517317732, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764517269517317732, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764517269517317732, guid: 9d29f0a4077eac54db334d3fef340137,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d29f0a4077eac54db334d3fef340137, type: 3}
@@ -5470,6 +5545,8 @@ MonoBehaviour:
   castRadius: 0.75
   maxSpeed: 5
   minSpeed: 3
+  minLength: 0.5
+  maxLength: 8
   MinDist: 0.01
   points: []
 --- !u!120 &1702357200
