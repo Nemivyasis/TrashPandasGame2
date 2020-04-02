@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level2.unity
     guid: 63fb1c73f82823b4db78da19e09d71ec
   - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: c2135fc41219ef745a0a752166952086
+  - enabled: 1
     path: Assets/Scenes/Bens BanksyScene.unity
     guid: 6ca1c18ac444cdf41b661a7e91dddcde
   - enabled: 0

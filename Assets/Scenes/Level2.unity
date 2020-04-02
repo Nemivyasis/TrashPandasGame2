@@ -838,7 +838,7 @@ PrefabInstance:
     - target: {fileID: 8890288046572556101, guid: 2e068d7a71858eb4195316aa5c6b284d,
         type: 3}
       propertyPath: nextScene
-      value: UIManagerScene
+      value: Level3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e068d7a71858eb4195316aa5c6b284d, type: 3}
@@ -5548,6 +5548,7 @@ MonoBehaviour:
   minLength: 0.5
   maxLength: 8
   MinDist: 0.01
+  DestroyTime: 7.5
   points: []
 --- !u!120 &1702357200
 LineRenderer:
