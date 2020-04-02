@@ -251,14 +251,14 @@ public class CurrentScript : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		SetCurrentPoint(DetermineCurrentPoint());
-		Vector2 temp = new Vector2(collision.transform.position.x, collision.transform.position.y);
+		/*Vector2 temp = new Vector2(collision.transform.position.x, collision.transform.position.y);
 		int testtemp = TestCurrentPoint(temp);
 		if(testtemp != currentPoint)
 		{
-			Debug.Log("test != current point");
-			Debug.Log(currentPoint);
-			Debug.Log(testtemp);
-		}
+			//Debug.Log("test != current point");
+			//Debug.Log(currentPoint);
+			//Debug.Log(testtemp);
+		}*/
 		col = collision;
 		pushing = true;
 		clock = 0;

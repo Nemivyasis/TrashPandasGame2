@@ -43,16 +43,17 @@ public class CurrentDrawer : MonoBehaviour
 
     public void EndCurrent()
     {
-        if (lineRenderScript.GetCurrentCount() != 0)
-        {
-			if(CurrentScript != null)
+		if(CurrentScript != null)
+		{
+			if(CurrentScript.GetCurrentCount() != 0)
 			{
 				CurrentScript.ConfirmList();
+				CreateNewCurrent();
 			}
-			else
-			{
-				lineRenderScript.ConfirmList();
-			}
+		} else 
+		if (lineRenderScript.GetCurrentCount() != 0)
+        {
+			lineRenderScript.ConfirmList();
             CreateNewCurrent();
         }
     }
