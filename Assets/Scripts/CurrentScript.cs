@@ -54,6 +54,8 @@ public class CurrentScript : MonoBehaviour
 
 	private bool pushing = true;
 
+	private Collider2D[] collider2Ds;
+
 	//this helps for testing
 	private void Reset()
 	{
@@ -67,6 +69,11 @@ public class CurrentScript : MonoBehaviour
 	{
 		edgeCollider = GetComponent<EdgeCollider2D>();
 		lineRenderer = GetComponent<LineRenderer>();
+		collider2Ds = new Collider2D[5];
+		/*for(int i = 0; i< 5; i++)
+		{
+			collider2Ds[i] = null;
+		}*/
 		if (points == null)
 		{
 			points = new List<Vector2>();
@@ -79,7 +86,7 @@ public class CurrentScript : MonoBehaviour
 		{
 			clock += Time.deltaTime;
 			float per = (DestroyTime - clock) / DestroyTime;
-			Debug.Log((DestroyTime - clock) / DestroyTime);
+			//Debug.Log((DestroyTime - clock) / DestroyTime);
 			/*Color c = new Color(1,1,1, (DestroyTime - clock) / DestroyTime);
 			lineRenderer.startColor = c;
 			lineRenderer.endColor = c;*/
@@ -173,6 +180,22 @@ public class CurrentScript : MonoBehaviour
 		return -1;
 	}
 
+	public int TestCurrentPoint(Vector2 point)
+	{
+		float minDist = float.MaxValue;
+		int closest = 0;
+		for (int i = 0; i < points.Count - 1; i++)
+		{
+			float dist = DistanceToPoint(i,point);
+			if(dist < minDist)
+			{
+				minDist = dist;
+				closest = i;
+			}
+		}
+		return closest;
+	}
+
 	/// <summary>
 	/// check if the player is between a point and the next point on the list 
 	/// </summary>
@@ -217,9 +240,25 @@ public class CurrentScript : MonoBehaviour
 		return (hit > 0 && (col == null || rays[0].collider == col));
 	}
 
+	private float DistanceToPoint(int index, Vector2 point)
+	{
+		float lsqrd = Vector2.SqrMagnitude(points[index+1] - points[index]);
+		float t = Mathf.Max(0, Mathf.Min(1, Vector2.Dot(point - points[index], points[index+1] - points[index]) / lsqrd));
+		Vector2 proj = points[index] + t * (points[index+1] - points[index]);
+		return Vector2.SqrMagnitude(proj);
+	}
+
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		SetCurrentPoint(DetermineCurrentPoint());
+		Vector2 temp = new Vector2(collision.transform.position.x, collision.transform.position.y);
+		int testtemp = TestCurrentPoint(temp);
+		if(testtemp != currentPoint)
+		{
+			Debug.Log("test != current point");
+			Debug.Log(currentPoint);
+			Debug.Log(testtemp);
+		}
 		col = collision;
 		pushing = true;
 		clock = 0;
@@ -253,10 +292,13 @@ public class CurrentScript : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
+		
 		if (currentPoint != -1)
 		{
 			if (currentPoint < points.Count - 2)
 			{
+				
+				//Debug.Log(collision.GetContacts(collider2Ds));
 				Vector2 proj = (currentLine * (Vector2.Dot(new Vector2(collision.bounds.center.x, collision.bounds.center.y)-points[currentPoint], currentLine) / currentLine.sqrMagnitude));
 				//Debug.Log(proj);
 				//Debug.Log(currentLine);
