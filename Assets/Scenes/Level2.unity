@@ -2199,7 +2199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenPoints: 0.01
-  currentPrefab: {fileID: 6730791154299166478, guid: 1080bf2c8ccf887418e2a795443d419c,
+  currentPrefab: {fileID: 2844530397046145908, guid: 30abb4fbf1aa00647bdef563753d02d6,
     type: 3}
 --- !u!114 &828755799
 MonoBehaviour:
