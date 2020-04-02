@@ -180,8 +180,13 @@ public class CurrentTest : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		pushing = true;
-		pushnum++;
+		CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
+		if (currentEffectable != null && currentEffectable.extendsTimer)
+		{
+			pushing = true;
+			pushnum++;
+		}
+		
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
@@ -191,16 +196,28 @@ public class CurrentTest : MonoBehaviour
 		Vector2 currentspeed = points[testtemp + 1] - points[testtemp];
 		Vector2 perp = new Vector2(-currentspeed.y, currentspeed.x);
 		buyonacyLine = (Vector2.Dot(Physics2D.gravity * 0.1f, perp) / perp.sqrMagnitude) * perp * -1;
-		collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed)+buyonacyLine/2);
+		CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
+		if (currentEffectable)
+		{
+			currentEffectable.ApplyCurrentEffect(currentspeed.normalized, buyonacyLine, speed);
+		}
+		else
+		{
+			collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed) + buyonacyLine / 2);
+		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		pushnum--;
-		if(pushnum <= 0)
+		CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
+		if (currentEffectable != null && currentEffectable.extendsTimer)
 		{
-			pushing = false;
-			pushnum = 0;
+			pushnum--;
+			if (pushnum <= 0)
+			{
+				pushing = false;
+				pushnum = 0;
+			}
 		}
 	}
 
