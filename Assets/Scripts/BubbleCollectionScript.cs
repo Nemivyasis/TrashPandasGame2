@@ -18,6 +18,16 @@ public class BubbleCollectionScript : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collider)
+    {
+        if (collider.gameObject.tag == "Fish")
+        {
+            score += 100;
+            collider.gameObject.SetActive(false);
+            UpdateScore(score);
+        }
+    }
+
     void UpdateScore(int score)
     {
         label.text = ""+score;
