@@ -189,7 +189,9 @@ public class CurrentTest : MonoBehaviour
 		Vector2 temp = new Vector2(collision.transform.position.x, collision.transform.position.y);
 		int testtemp = TestCurrentPoint(temp);
 		Vector2 currentspeed = points[testtemp + 1] - points[testtemp];
-		collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed));
+		Vector2 perp = new Vector2(-currentspeed.y, currentspeed.x);
+		buyonacyLine = (Vector2.Dot(Physics2D.gravity * 0.1f, perp) / perp.sqrMagnitude) * perp * -1;
+		collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed)+buyonacyLine/2);
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)

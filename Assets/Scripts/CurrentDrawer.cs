@@ -9,7 +9,8 @@ public class CurrentDrawer : MonoBehaviour
     private float timeBetweenPoints = 0.1f;
 
     //[SerializeField]
-    private CurrentScript lineRenderScript;
+    private CurrentTest lineRenderScript;
+	private CurrentScript CurrentScript;
 
     private float timeAtLastPoint = 0;
 
@@ -23,7 +24,8 @@ public class CurrentDrawer : MonoBehaviour
     public void CreateNewCurrent()
     {
         GameObject current = Instantiate(currentPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-        lineRenderScript = current.GetComponent<CurrentScript>();
+		CurrentScript = current.GetComponent<CurrentScript>();
+        lineRenderScript = current.GetComponent<CurrentTest>();
     }
 
     public void Drag(BaseEventData data)
@@ -43,7 +45,14 @@ public class CurrentDrawer : MonoBehaviour
     {
         if (lineRenderScript.GetCurrentCount() != 0)
         {
-            lineRenderScript.ConfirmList();
+			if(CurrentScript != null)
+			{
+				CurrentScript.ConfirmList();
+			}
+			else
+			{
+				lineRenderScript.ConfirmList();
+			}
             CreateNewCurrent();
         }
     }
@@ -61,7 +70,14 @@ public class CurrentDrawer : MonoBehaviour
             }
 
             pointerPos.z = 0;
-            lineRenderScript.AddPoint(pointerPos);
+			if (CurrentScript != null)
+			{
+				CurrentScript.AddPoint(pointerPos);
+			}
+			else
+			{
+				lineRenderScript.AddPoint(pointerPos);
+			}
             timeAtLastPoint = Time.time;
         }
     }

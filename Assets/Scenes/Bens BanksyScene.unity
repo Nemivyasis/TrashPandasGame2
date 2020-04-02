@@ -373,8 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeBetweenPoints: 0.01
-  currentPrefab: {fileID: 6730791154299166478, guid: 1080bf2c8ccf887418e2a795443d419c,
-    type: 3}
+  currentPrefab: {fileID: 525681272}
 --- !u!1 &525681272
 GameObject:
   m_ObjectHideFlags: 0
