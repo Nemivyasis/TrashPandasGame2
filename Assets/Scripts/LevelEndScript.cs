@@ -21,7 +21,7 @@ public class LevelEndScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (nextScene != "")
+        if (nextScene != "" && collision.gameObject.tag == "Player")
             SceneManager.LoadScene(nextScene);
     }
 }
