@@ -162,4 +162,5 @@ MonoBehaviour:
   maxLength: 8
   MinDist: 0.01
   DestroyTime: 7.5
+  tolerance: 0.5
   points: []

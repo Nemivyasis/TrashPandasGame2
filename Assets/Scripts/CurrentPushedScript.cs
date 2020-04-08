@@ -17,12 +17,12 @@ public class CurrentPushedScript : CurrentEffectableScript
 
 	public override void ApplyCurrentEffect(Vector2 direction, Vector2 buyonacy, float speed)
 	{
-		Vector2 force = direction * speed;
+		Vector2 force = direction * speed *forceMultiplier;
 		if (useBuyonacy)
 		{
 			force += buyonacy / 2;
 		}
-		RigidBodyEfected.AddForce(direction * speed + buyonacy / 2);
+		RigidBodyEfected.AddForce(force);
 	}
 
 }

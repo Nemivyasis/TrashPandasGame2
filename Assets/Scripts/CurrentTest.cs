@@ -26,6 +26,8 @@ public class CurrentTest : MonoBehaviour
 
 	public float DestroyTime = 7.5f;
 
+	public float tolerance = 0.1f;
+
 	[SerializeField]
 	private List<Vector2> points;
 
@@ -36,7 +38,7 @@ public class CurrentTest : MonoBehaviour
 
 	private Collider2D col;
 
-	private float length = 0;
+	//private float length = 0;
 
 	private float speed = 0;
 
@@ -55,6 +57,7 @@ public class CurrentTest : MonoBehaviour
 		points.AddRange(edgeCollider.points);
 		lineRenderer.positionCount = points.Count;
 		ConfirmList();
+		//OldConfirmList();
 	}
 
 	private void Start()
@@ -117,7 +120,7 @@ public class CurrentTest : MonoBehaviour
 	/// <summary>
 	/// removes all unnecessary points from the list and sets the line renderer and edge renderer points
 	/// </summary>
-	public void ConfirmList()
+	public void OldConfirmList()
 	{
 		float minDistSqr = MinDist * MinDist;
 		//bool shortening = false;
@@ -135,7 +138,7 @@ public class CurrentTest : MonoBehaviour
 			}
 		}
 
-		length = 0;
+		float length = 0;
 		Vector3[] positions = new Vector3[points.Count];
 		for (int i = 0; i < points.Count; i++)
 		{
@@ -154,24 +157,54 @@ public class CurrentTest : MonoBehaviour
 		pushing = false;
 	}
 
+	public void ConfirmList()
+	{
+		float length = 0;
+		lineRenderer.Simplify(tolerance);
+		Vector3[] positions = new Vector3[lineRenderer.positionCount];
+		lineRenderer.GetPositions(positions);
+		points.Clear();
+		for(int i = 0; i < positions.Length; i++)
+		{
+			points.Add(new Vector2(positions[i].x, positions[i].y));
+			if (i != 0)
+			{
+				length += (points[i - 1] - points[i]).magnitude;
+			}
+		}
+		length = Mathf.Clamp(length, minLength, maxLength);
+		speed = maxSpeed + (length - minLength) / (maxLength - minLength) * (minSpeed - maxSpeed);
+		edgeCollider.points = points.ToArray();
+		pushing = false;
+	}
+
 	private float DistanceToPoint(int index, Vector2 point)
 	{
-		float lsqrd = Vector2.SqrMagnitude(points[index] - points[index + 1]);
-		float t = Mathf.Max(0, Mathf.Min(1, Vector2.Dot(point - points[index + 1], points[index] - points[index + 1]) / lsqrd));
-		Vector2 proj = points[index + 1] + t * (points[index] - points[index + 1]);
-		return Vector2.SqrMagnitude(proj);
+		/*float lsqrd = Vector2.SqrMagnitude(points[index] - points[index + 1]);
+		//float t = Mathf.Max(0, Mathf.Min(1, Vector2.Dot(point - points[index + 1], points[index] - points[index + 1]) / lsqrd));
+		float t = Vector2.Dot(point - points[index], points[index+1] - points[index]) / lsqrd;
+		//float t = Mathf.Abs(Vector2.Dot(point, points[index] - points[index + 1]) / lsqrd);
+
+		//Vector2 proj = points[index + 1] + t * (points[index] - points[index + 1]);
+		Vector2 proj = points[index] + t * (points[index+1] - points[index]);
+		proj -= point;
+		return Vector2.SqrMagnitude(proj);*/
+		float lsqrd = Vector2.SqrMagnitude(points[index+1] - points[index]);
+		float t = Mathf.Clamp(Vector2.Dot(point - points[index], points[index + 1] - points[index]) / lsqrd, 0, 0.99f);
+		Vector2 proj = points[index] + t * (points[index + 1] - points[index]);
+		return Vector2.SqrMagnitude(point - proj);
 	}
 
 	public int TestCurrentPoint(Vector2 point)
 	{
-		float minDist = float.MaxValue;
+		float minimumDist = float.MaxValue;
 		int closest = 0;
 		for (int i = 0; i < points.Count - 1; i++)
 		{
 			float dist = DistanceToPoint(i, point);
-			if (dist < minDist)
+			if (dist < minimumDist)
 			{
-				minDist = dist;
+				minimumDist = dist;
 				closest = i;
 			}
 		}
@@ -204,6 +237,25 @@ public class CurrentTest : MonoBehaviour
 		else
 		{
 			collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed) + buyonacyLine / 2);
+		}
+
+		//for current test
+		{
+			CurrentDebugScript cds = collision.GetComponent<CurrentDebugScript>();
+			if(cds != null)
+			{
+				/*float lsqrd = Vector2.SqrMagnitude(points[testtemp] - points[testtemp + 1]);
+				float t = Vector2.Dot(temp - points[testtemp + 1], points[testtemp] - points[testtemp + 1]) / lsqrd;
+				//Vector2 proj = points[testtemp + 1] + t * (points[testtemp] - points[testtemp + 1]);
+				//float t = Vector2.Dot(temp, points[testtemp] - points[testtemp + 1]) / lsqrd;
+				Vector2 proj = points[testtemp] + t * (points[testtemp] - points[testtemp + 1]);
+				proj -= temp;
+				cds.DebugPoint(proj,points[testtemp]);*/
+				float lsqrd = Vector2.SqrMagnitude(points[testtemp] - points[testtemp + 1]);
+				float t = Mathf.Clamp(Vector2.Dot(temp - points[testtemp], points[testtemp + 1] - points[testtemp]) / lsqrd, 0, 0.99f);
+				Vector2 proj = points[testtemp] + t * (points[testtemp + 1] - points[testtemp]);
+				cds.DebugPoint(temp - proj,points[testtemp]);
+			}
 		}
 	}
 
