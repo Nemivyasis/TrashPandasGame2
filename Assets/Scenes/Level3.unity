@@ -12026,7 +12026,7 @@ PrefabInstance:
     - target: {fileID: 8890288046572556101, guid: 2e068d7a71858eb4195316aa5c6b284d,
         type: 3}
       propertyPath: nextScene
-      value: UIManagerScene
+      value: Level4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e068d7a71858eb4195316aa5c6b284d, type: 3}
