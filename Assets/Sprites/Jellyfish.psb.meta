@@ -554,8 +554,8 @@ ScriptedImporter:
     uvTransform: {x: -413, y: 4}
   - name: Layer 4
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.5451211, y: 0.9499438}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -1891,8 +1891,8 @@ ScriptedImporter:
     uvTransform: {x: -319, y: 1644}
   - name: Right Leg
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.18604368, y: 0.8859939}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -2453,8 +2453,8 @@ ScriptedImporter:
     uvTransform: {x: -1174, y: 1561}
   - name: Layer 3
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.81395644, y: 0.9190792}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
