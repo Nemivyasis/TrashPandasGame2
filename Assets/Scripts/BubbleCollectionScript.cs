@@ -9,6 +9,7 @@ public class BubbleCollectionScript : MonoBehaviour
     int score = 0;
     public Text label;
     public AudioClip popFX;
+    public AudioClip biteFX;
     private AudioSource source;
 
     void Awake()
@@ -31,16 +32,22 @@ public class BubbleCollectionScript : MonoBehaviour
     {
         if (collider.gameObject.tag == "Fish")
         {
-            source.PlayOneShot(popFX);
+            source.PlayOneShot(biteFX);
             score += 100;
             collider.gameObject.SetActive(false);
             UpdateScore(score);
         }
 		if(collider.gameObject.tag == "Damager")
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            source.PlayOneShot(biteFX);
+            Invoke("DelayReloadScene", 0.3f);
 		}
 	}
+
+    void DelayReloadScene ()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     void UpdateScore(int score)
     {

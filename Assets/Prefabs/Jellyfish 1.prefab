@@ -363,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   label: {fileID: 3905052189824598844, guid: c4b6bf0b83fce884b9294a6d0ad2402e, type: 3}
   popFX: {fileID: 8300000, guid: 3de2848f84314154f99bf91436ae8980, type: 3}
+  biteFX: {fileID: 8300000, guid: 654bf6c111482564eb79a349ae8aaac3, type: 3}
 --- !u!82 &604676661513398121
 AudioSource:
   m_ObjectHideFlags: 0
@@ -373,7 +374,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3de2848f84314154f99bf91436ae8980, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 654bf6c111482564eb79a349ae8aaac3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
