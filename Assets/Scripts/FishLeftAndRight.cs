@@ -7,8 +7,8 @@ public class FishLeftAndRight : FishBase
     [SerializeField]
     private float timeBetweenChanges = 1;
     float timeSinceChange;
-    bool start = false;
-    bool moveLeft = false;
+	protected bool start = false;
+    protected bool moveLeft = false;
     protected override void Move()
     {
         if (!start)

@@ -213,62 +213,75 @@ public class CurrentTest : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
-		if (currentEffectable != null && currentEffectable.extendsTimer)
+		if (!collision.isTrigger)
 		{
-			pushing = true;
-			pushnum++;
+			CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
+			if (currentEffectable != null && currentEffectable.extendsTimer)
+			{
+				pushing = true;
+				pushnum++;
+			}
 		}
-		
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		Vector2 temp = new Vector2(collision.transform.position.x, collision.transform.position.y);
-		int testtemp = TestCurrentPoint(temp);
-		Vector2 currentspeed = points[testtemp + 1] - points[testtemp];
-		Vector2 perp = new Vector2(-currentspeed.y, currentspeed.x);
-		buyonacyLine = (Vector2.Dot(Physics2D.gravity * 0.1f, perp) / perp.sqrMagnitude) * perp * -1;
-		CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
-		if (currentEffectable)
+		if (!collision.isTrigger)
 		{
-			currentEffectable.ApplyCurrentEffect(currentspeed.normalized, buyonacyLine, speed);
-		}
-		else
-		{
-			collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed) + buyonacyLine / 2);
-		}
-
-		//for current test
-		{
-			CurrentDebugScript cds = collision.GetComponent<CurrentDebugScript>();
-			if(cds != null)
+			Vector2 temp = new Vector2(collision.transform.position.x, collision.transform.position.y);
+			int testtemp = TestCurrentPoint(temp);
+			Vector2 currentspeed = points[testtemp + 1] - points[testtemp];
+			Vector2 perp = new Vector2(-currentspeed.y, currentspeed.x);
+			buyonacyLine = (Vector2.Dot(Physics2D.gravity * 0.1f, perp) / perp.sqrMagnitude) * perp * -1;
+			CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
+			if (currentEffectable)
 			{
-				/*float lsqrd = Vector2.SqrMagnitude(points[testtemp] - points[testtemp + 1]);
-				float t = Vector2.Dot(temp - points[testtemp + 1], points[testtemp] - points[testtemp + 1]) / lsqrd;
-				//Vector2 proj = points[testtemp + 1] + t * (points[testtemp] - points[testtemp + 1]);
-				//float t = Vector2.Dot(temp, points[testtemp] - points[testtemp + 1]) / lsqrd;
-				Vector2 proj = points[testtemp] + t * (points[testtemp] - points[testtemp + 1]);
-				proj -= temp;
-				cds.DebugPoint(proj,points[testtemp]);*/
-				float lsqrd = Vector2.SqrMagnitude(points[testtemp] - points[testtemp + 1]);
-				float t = Mathf.Clamp(Vector2.Dot(temp - points[testtemp], points[testtemp + 1] - points[testtemp]) / lsqrd, 0, 0.99f);
-				Vector2 proj = points[testtemp] + t * (points[testtemp + 1] - points[testtemp]);
-				cds.DebugPoint(temp - proj,points[testtemp]);
+				currentEffectable.ApplyCurrentEffect(currentspeed.normalized, buyonacyLine, speed);
+			}
+			else
+			{
+				collision.GetComponent<Rigidbody2D>().AddForce((currentspeed.normalized * speed) + buyonacyLine / 2);
+			}
+
+			//for current test
+			{
+				CurrentDebugScript cds = collision.GetComponent<CurrentDebugScript>();
+				if (cds != null)
+				{
+					/*float lsqrd = Vector2.SqrMagnitude(points[testtemp] - points[testtemp + 1]);
+					float t = Vector2.Dot(temp - points[testtemp + 1], points[testtemp] - points[testtemp + 1]) / lsqrd;
+					//Vector2 proj = points[testtemp + 1] + t * (points[testtemp] - points[testtemp + 1]);
+					//float t = Vector2.Dot(temp, points[testtemp] - points[testtemp + 1]) / lsqrd;
+					Vector2 proj = points[testtemp] + t * (points[testtemp] - points[testtemp + 1]);
+					proj -= temp;
+					cds.DebugPoint(proj,points[testtemp]);*/
+					float lsqrd = Vector2.SqrMagnitude(points[testtemp] - points[testtemp + 1]);
+					float t = Mathf.Clamp(Vector2.Dot(temp - points[testtemp], points[testtemp + 1] - points[testtemp]) / lsqrd, 0, 0.99f);
+					Vector2 proj = points[testtemp] + t * (points[testtemp + 1] - points[testtemp]);
+					cds.DebugPoint(temp - proj, points[testtemp]);
+				}
 			}
 		}
 	}
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
-		if (currentEffectable != null && currentEffectable.extendsTimer)
+		if (!collision.isTrigger)
 		{
-			pushnum--;
-			if (pushnum <= 0)
+			CurrentEffectableScript currentEffectable = collision.GetComponent<CurrentEffectableScript>();
+			if (currentEffectable != null && currentEffectable.extendsTimer)
 			{
-				pushing = false;
-				pushnum = 0;
+				pushnum--;
+				if (pushnum <= 0)
+				{
+					pushing = false;
+					pushnum = 0;
+				}
+			}
+			CurrentLeaveVelocitySet currentLeave = collision.GetComponent<CurrentLeaveVelocitySet>();
+			if(currentLeave != null)
+			{
+				currentLeave.OnCurrrentLeave();
 			}
 		}
 	}

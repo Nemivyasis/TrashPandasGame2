@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BubbleCollectionScript : MonoBehaviour
 {
@@ -35,7 +36,11 @@ public class BubbleCollectionScript : MonoBehaviour
             collider.gameObject.SetActive(false);
             UpdateScore(score);
         }
-    }
+		if(collider.gameObject.tag == "Damager")
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		}
+	}
 
     void UpdateScore(int score)
     {
