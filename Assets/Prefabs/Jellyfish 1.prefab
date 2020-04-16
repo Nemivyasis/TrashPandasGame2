@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8820872773173662381}
   - component: {fileID: 4639277598299673960}
   - component: {fileID: 8789310650134621042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 1232746922615354472}
   - component: {fileID: 1230988799627252856}
   - component: {fileID: 822409569160721949}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3435058838871874961}
   - component: {fileID: 7837102393946245953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -248,9 +248,9 @@ GameObject:
   - component: {fileID: 6648087789226587512}
   - component: {fileID: 6648087789226587511}
   - component: {fileID: 604676661513398121}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Jellyfish 1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 483500127549875788}
   - component: {fileID: 534800920709018450}
   - component: {fileID: 7113273916402818953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Stingers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -564,7 +564,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2657362991766809521}
   - component: {fileID: 4525488241615592660}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
