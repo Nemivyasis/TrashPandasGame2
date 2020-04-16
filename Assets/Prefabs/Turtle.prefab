@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   extendsTimer: 0
-  forceMultiplier: 0.8
+  forceMultiplier: 0.3
   useBuyonacy: 0
 --- !u!114 &5671799247088125807
 MonoBehaviour:
