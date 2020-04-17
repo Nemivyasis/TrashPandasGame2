@@ -61,6 +61,7 @@
 			}
 
 			sampler2D _MainTex;
+			float4 _MainTex_TexelSize;
 			sampler2D _AlphaTex;
 			float _AlphaSplitEnabled;
 
@@ -79,9 +80,11 @@
 			fixed4 frag(v2f IN) : SV_Target
 			{
 				float2 samp;
-				samp.x = -_Time.x;
-				samp.y = 0;
-				samp = samp + IN.texcoord;
+				float2 TexSize;
+				TexSize.xy = _MainTex_TexelSize.zw;
+				samp.x = modf(-IN.texcoord.x +_Time.x+ _MainTex_TexelSize.z, _MainTex_TexelSize.z);
+				samp.y = IN.texcoord.y;
+				//samp = modf(samp + IN.texcoord, TexSize);
 				fixed4 c = SampleSpriteTexture (samp) * IN.color;
 				c.rgb *= c.a;
 				return c;
