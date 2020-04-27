@@ -28,13 +28,32 @@ public class HighScore : MonoBehaviour
             new HighScoreEntry{ score = 9999999, name = "HEL"}
         };
 
-        highScoreEntryTransformList = new List<Transform>();
-
+        // sort
         for (int i = 0; i < highScoreEntryList.Count; i++)
         {
-            print("yeet");
-            CreateHighScoreEntryTransform(highScoreEntryList[i], entryContainer, highScoreEntryTransformList);
+            for (int j = i + 1; j < highScoreEntryList.Count; j++)
+            {
+                if(highScoreEntryList[j].score > highScoreEntryList[i].score)
+                {
+                    HighScoreEntry temp = highScoreEntryList[i];
+                    highScoreEntryList[i] = highScoreEntryList[j];
+                    highScoreEntryList[j] = temp;
+                }
+            }
         }
+
+        highScoreEntryTransformList = new List<Transform>();
+
+        foreach (HighScoreEntry entry in highScoreEntryList)
+        {
+            CreateHighScoreEntryTransform(entry, entryContainer, highScoreEntryTransformList);
+        }
+
+        // convert list to JSON
+        string json = JsonUtility.ToJson(highScoreEntryList);
+        // save JSON as a string in PLayerPrefs
+        PlayerPrefs.SetString("highScoreTable", json);
+        PlayerPrefs.Save();
     }
 
     private void CreateHighScoreEntryTransform(HighScoreEntry highScoreEntry, Transform container, List<Transform> transformList)
@@ -45,8 +64,6 @@ public class HighScore : MonoBehaviour
         entryTransform.gameObject.SetActive(true);
 
         int rank = transformList.Count + 1;
-        print(rank);
-        print(transformList.Count);
         string rankString;
 
         switch (rank)
@@ -70,6 +87,7 @@ public class HighScore : MonoBehaviour
     }
 
     // Represents a single high score entry
+    [System.Serializable]
     private class HighScoreEntry
     {
         public int score;
