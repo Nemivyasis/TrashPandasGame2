@@ -10,29 +10,30 @@ public class HighScore : MonoBehaviour
     private List<HighScoreEntry> highScoreEntryList;
     private List<Transform> highScoreEntryTransformList;
 
-    public float templateHeight = 20f;
+    private float templateHeight = 1.5f;
 
     private void Awake()
     {
-        entryContainer = transform.Find("HighScoreEntryContainer");
-        entryTemplate = entryContainer.Find("HighScoreEntryTemplate");
+        entryContainer = transform.Find("highscoreEntryContainer");
+        entryTemplate = entryContainer.Find("highscoreEntryTemplate");
 
         entryTemplate.gameObject.SetActive(false);
 
         highScoreEntryList = new List<HighScoreEntry>()
         {
             new HighScoreEntry{ score = 10000, name = "AAA"},
-            new HighScoreEntry{ score = 10000, name = "AAA"},
-            new HighScoreEntry{ score = 10000, name = "AAA"},
-            new HighScoreEntry{ score = 10000, name = "AAA"},
-            new HighScoreEntry{ score = 10000, name = "AAA"}
+            new HighScoreEntry{ score = 23000, name = "CAL"},
+            new HighScoreEntry{ score = 100, name = "JOE"},
+            new HighScoreEntry{ score = 1, name = "BRO"},
+            new HighScoreEntry{ score = 9999999, name = "HEL"}
         };
 
         highScoreEntryTransformList = new List<Transform>();
 
-        foreach(HighScoreEntry entry in highScoreEntryList)
+        for (int i = 0; i < highScoreEntryList.Count; i++)
         {
-            CreateHighScoreEntryTransform(entry, entryContainer, highScoreEntryTransformList);
+            print("yeet");
+            CreateHighScoreEntryTransform(highScoreEntryList[i], entryContainer, highScoreEntryTransformList);
         }
     }
 
@@ -44,6 +45,8 @@ public class HighScore : MonoBehaviour
         entryTransform.gameObject.SetActive(true);
 
         int rank = transformList.Count + 1;
+        print(rank);
+        print(transformList.Count);
         string rankString;
 
         switch (rank)
@@ -55,13 +58,15 @@ public class HighScore : MonoBehaviour
             case 2: rankString = "2nd"; break;
             case 3: rankString = "3rd"; break;
         }
-        entryTransform.Find("Place").GetComponent<Text>().text = rankString;
+        entryTransform.Find("posText").GetComponent<Text>().text = rankString;
 
         int score = highScoreEntry.score;
-        entryTransform.Find("Score").GetComponent<Text>().text = score.ToString();
+        entryTransform.Find("scoreText").GetComponent<Text>().text = score.ToString();
 
         string name = highScoreEntry.name;
-        entryTransform.Find("Name").GetComponent<Text>().text = name;
+        entryTransform.Find("nameText").GetComponent<Text>().text = name;
+
+        transformList.Add(entryTransform);
     }
 
     // Represents a single high score entry
