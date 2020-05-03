@@ -27,9 +27,8 @@ public class BubbleCollectionScript : MonoBehaviour
         if (collider.gameObject.tag == "Bubble")
         {
             source.PlayOneShot(popFX);
-            score += 100;
+            AddScore();
             collider.gameObject.SetActive(false);
-            UpdateScore(score);
         }
         if (collider.gameObject.tag == "Damager")
         {
@@ -55,6 +54,18 @@ public class BubbleCollectionScript : MonoBehaviour
 		}
 	}
 
+    void AddScore()
+    {
+        score += 100;
+
+        if (ScoreSingleton.instance != null)
+        {
+            ScoreSingleton.instance.score = score;
+        }
+
+        UpdateScore(score);
+    }
+
     void DelayReloadScene ()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -62,6 +73,6 @@ public class BubbleCollectionScript : MonoBehaviour
 
     void UpdateScore(int score)
     {
-        label.text = "" + ScoreSingleton.instance.score;
+        label.text = "" + score;
     }
 }
