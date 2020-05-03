@@ -82,7 +82,7 @@
 				float2 samp;
 				float2 TexSize;
 				TexSize.xy = _MainTex_TexelSize.zw;
-				samp.x = modf(-IN.texcoord.x +_Time.x+ _MainTex_TexelSize.z, _MainTex_TexelSize.z);
+				samp.x = modf(-IN.texcoord.x +_Time.y+ _MainTex_TexelSize.z, _MainTex_TexelSize.z);
 				samp.y = IN.texcoord.y;
 				//samp = modf(samp + IN.texcoord, TexSize);
 				fixed4 c = SampleSpriteTexture (samp) * IN.color;
