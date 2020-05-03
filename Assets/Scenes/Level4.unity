@@ -8797,6 +8797,36 @@ PrefabInstance:
       objectReference: {fileID: 114785836}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a029d7febaa3a7a4da24da99373d9e10, type: 3}
+--- !u!1 &1010123486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8055542166793316649, guid: a029d7febaa3a7a4da24da99373d9e10,
+    type: 3}
+  m_PrefabInstance: {fileID: 1010123485}
+  m_PrefabAsset: {fileID: 0}
+--- !u!233 &1010123487
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1010123486}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -3.53, y: 89.54}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 1
+  m_AngleLimits:
+    m_LowerAngle: -800
+    m_UpperAngle: 20
 --- !u!1001 &1010539876
 PrefabInstance:
   m_ObjectHideFlags: 0

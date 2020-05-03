@@ -2910,6 +2910,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df980b5d4337a8941b8b75e41eac3c8a, type: 3}
+--- !u!1 &391567258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8055542166793316649, guid: a029d7febaa3a7a4da24da99373d9e10,
+    type: 3}
+  m_PrefabInstance: {fileID: 550253060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!233 &391567259
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391567258}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: -18.68, y: -30.47}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 1
+  m_AngleLimits:
+    m_LowerAngle: -800
+    m_UpperAngle: 20
 --- !u!1001 &393891288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4452,6 +4482,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9930abf54020c84a914ae4436d4361e, type: 3}
+--- !u!1 &678725157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8055542166793316649, guid: a029d7febaa3a7a4da24da99373d9e10,
+    type: 3}
+  m_PrefabInstance: {fileID: 243958542}
+  m_PrefabAsset: {fileID: 0}
+--- !u!233 &678725158
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678725157}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 16.58, y: -28.51}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 1
+  m_AngleLimits:
+    m_LowerAngle: -800
+    m_UpperAngle: 20
 --- !u!1001 &699191245
 PrefabInstance:
   m_ObjectHideFlags: 0
