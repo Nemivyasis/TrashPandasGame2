@@ -31,6 +31,13 @@ public class BubbleCollectionScript : MonoBehaviour
             collider.gameObject.SetActive(false);
             UpdateScore(score);
         }
+        if (collider.gameObject.tag == "Damager")
+        {
+
+            source.PlayOneShot(biteFX);
+            Invoke("DelayReloadScene", 0.3f);
+        }
+
     }
 
     void OnCollisionEnter2D(Collision2D collider)
@@ -47,18 +54,6 @@ public class BubbleCollectionScript : MonoBehaviour
             Invoke("DelayReloadScene", 0.3f);
 		}
 	}
-
-    void AddScore()
-    {
-        score += 100;
-
-        if (ScoreSingleton.instance != null)
-        {
-            ScoreSingleton.instance.score = score;
-        }
-        
-        UpdateScore(score);
-    }
 
     void DelayReloadScene ()
     {
