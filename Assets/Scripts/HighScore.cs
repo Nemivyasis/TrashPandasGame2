@@ -76,7 +76,7 @@ public class HighScore : MonoBehaviour
         transformList.Add(entryTransform);
     }
 
-    private void AddHighScoreEntry(int score, string name)
+    public void AddHighScoreEntry(int score, string name)
     {
         // check name length to only accept 3 letters, caps them all for the user
         if (name.Length > 3)

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class BubbleCollectionScript : MonoBehaviour
 {
-    int score = 0;
+    public int score;
     public Text label;
     public AudioClip popFX;
     public AudioClip biteFX;
@@ -14,6 +14,11 @@ public class BubbleCollectionScript : MonoBehaviour
 
     void Awake()
     {
+        if(ScoreSingleton.instance != null)
+        {
+            score = ScoreSingleton.instance.score;
+        }
+
         source = GetComponent<AudioSource>();
     }
 
@@ -33,9 +38,8 @@ public class BubbleCollectionScript : MonoBehaviour
         if (collider.gameObject.tag == "Fish")
         {
             source.PlayOneShot(biteFX);
-            score += 100;
+            AddScore();
             collider.gameObject.SetActive(false);
-            UpdateScore(score);
         }
 		if(collider.gameObject.tag == "Damager")
 		{
@@ -44,6 +48,18 @@ public class BubbleCollectionScript : MonoBehaviour
 		}
 	}
 
+    void AddScore()
+    {
+        score += 100;
+
+        if (ScoreSingleton.instance != null)
+        {
+            ScoreSingleton.instance.score = score;
+        }
+        
+        UpdateScore(score);
+    }
+
     void DelayReloadScene ()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -51,6 +67,6 @@ public class BubbleCollectionScript : MonoBehaviour
 
     void UpdateScore(int score)
     {
-        label.text = ""+score;
+        label.text = "" + ScoreSingleton.instance.score;
     }
 }
