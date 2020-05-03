@@ -11,7 +11,7 @@ public class HighScoreTable : MonoBehaviour
     private Transform entryContainer;
     private Transform entryTemplate;
 
-    private float templateHeight = 1.5f;
+    private float templateHeight = 1.0f;
 
     private void Awake()
     {
