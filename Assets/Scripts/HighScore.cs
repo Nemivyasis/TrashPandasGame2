@@ -7,8 +7,6 @@ public class HighScore : MonoBehaviour
 {
     public static HighScore instance;
 
-    //private Transform entryContainer;
-    //private Transform entryTemplate;
     private List<Transform> highScoreEntryTransformList;
     public string postHighScoreScene;
 
@@ -22,13 +20,6 @@ public class HighScore : MonoBehaviour
             return;
         }
         instance = this;
-
-        //entryContainer = transform.Find("highscoreEntryContainer");
-        //entryTemplate = entryContainer.Find("highscoreEntryTemplate");
-
-        //entryTemplate.gameObject.SetActive(false);
-
-
 
         string jsonString = PlayerPrefs.GetString("highScoreTable");
         SavedHighscores highscores = JsonUtility.FromJson<SavedHighscores>(jsonString);
@@ -58,43 +49,9 @@ public class HighScore : MonoBehaviour
         }
 
         highScoreEntryTransformList = new List<Transform>();
-
-        /*for (int i = 0; i < 5; i++)
-        {
-            CreateHighScoreEntryTransform(highscores.highScoreEntries[i], entryContainer, highScoreEntryTransformList);
-        }*/
     }
 
-    /*private void CreateHighScoreEntryTransform(HighScoreEntry highScoreEntry, Transform container, List<Transform> transformList)
-    {
-        Transform entryTransform = Instantiate(entryTemplate, entryContainer);
-        RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
-        entryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * transformList.Count);
-        entryTransform.gameObject.SetActive(true);
 
-        int rank = transformList.Count + 1;
-        string rankString;
-
-        switch (rank)
-        {
-            default:
-                rankString = rank + "th"; break;
-
-            case 1: rankString = "1st"; break;
-            case 2: rankString = "2nd"; break;
-            case 3: rankString = "3rd"; break;
-        }
-        entryTransform.Find("posText").GetComponent<Text>().text = rankString;
-
-        int score = highScoreEntry.score;
-        entryTransform.Find("scoreText").GetComponent<Text>().text = score.ToString();
-
-        string name = highScoreEntry.name;
-        entryTransform.Find("nameText").GetComponent<Text>().text = name;
-
-
-        transformList.Add(entryTransform);
-    }*/
 
     public void AddHighScoreEntry(int score, string name)
     {
@@ -130,7 +87,7 @@ public class HighScore : MonoBehaviour
         }
 
         if (highscores.highScoreEntries.Count > 5)
-            highscores.highScoreEntries.RemoveAt(highscores.highScoreEntries.Count);
+            highscores.highScoreEntries.RemoveAt(highscores.highScoreEntries.Count -1);
 
         // save
         string json = JsonUtility.ToJson(highscores);
@@ -157,7 +114,7 @@ public class HighScore : MonoBehaviour
         string jsonString = PlayerPrefs.GetString("highScoreTable");
         SavedHighscores highscores = JsonUtility.FromJson<SavedHighscores>(jsonString);
 
-        if (highscores.highScoreEntries.Count == 0)
+        if (highscores.highScoreEntries.Count < 5)
             return true;
 
         for (int i = 0; i < highscores.highScoreEntries.Count; i++)
