@@ -5,18 +5,28 @@ using UnityEngine.UI;
 
 public class HighScore : MonoBehaviour
 {
-    private Transform entryContainer;
-    private Transform entryTemplate;
+    public static HighScore instance;
+
+    //private Transform entryContainer;
+    //private Transform entryTemplate;
     private List<Transform> highScoreEntryTransformList;
+    public string postHighScoreScene;
 
     private float templateHeight = 1.5f;
 
     private void Awake()
     {
-        entryContainer = transform.Find("highscoreEntryContainer");
-        entryTemplate = entryContainer.Find("highscoreEntryTemplate");
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
 
-        entryTemplate.gameObject.SetActive(false);
+        //entryContainer = transform.Find("highscoreEntryContainer");
+        //entryTemplate = entryContainer.Find("highscoreEntryTemplate");
+
+        //entryTemplate.gameObject.SetActive(false);
 
 
 
@@ -39,13 +49,13 @@ public class HighScore : MonoBehaviour
 
         highScoreEntryTransformList = new List<Transform>();
 
-        for (int i = 0; i < 5; i++)
+        /*for (int i = 0; i < 5; i++)
         {
             CreateHighScoreEntryTransform(highscores.highScoreEntries[i], entryContainer, highScoreEntryTransformList);
-        }
+        }*/
     }
 
-    private void CreateHighScoreEntryTransform(HighScoreEntry highScoreEntry, Transform container, List<Transform> transformList)
+    /*private void CreateHighScoreEntryTransform(HighScoreEntry highScoreEntry, Transform container, List<Transform> transformList)
     {
         Transform entryTransform = Instantiate(entryTemplate, entryContainer);
         RectTransform entryRectTransform = entryTransform.GetComponent<RectTransform>();
@@ -74,7 +84,7 @@ public class HighScore : MonoBehaviour
 
 
         transformList.Add(entryTransform);
-    }
+    }*/
 
     public void AddHighScoreEntry(int score, string name)
     {
@@ -96,6 +106,22 @@ public class HighScore : MonoBehaviour
         // store
         highscores.highScoreEntries.Add(entry);
 
+        for (int i = 0; i < highscores.highScoreEntries.Count; i++)
+        {
+            for (int j = i + 1; j < highscores.highScoreEntries.Count; j++)
+            {
+                if (highscores.highScoreEntries[j].score > highscores.highScoreEntries[i].score)
+                {
+                    HighScoreEntry tempEntry = highscores.highScoreEntries[i];
+                    highscores.highScoreEntries[i] = highscores.highScoreEntries[j];
+                    highscores.highScoreEntries[j] = tempEntry;
+                }
+            }
+        }
+
+        if (highscores.highScoreEntries.Count > 5)
+            highscores.highScoreEntries.RemoveAt(highscores.highScoreEntries.Count);
+
         // save
         string json = JsonUtility.ToJson(highscores);
         PlayerPrefs.SetString("highScoreTable", json);
@@ -113,5 +139,19 @@ public class HighScore : MonoBehaviour
     {
         public int score;
         public string name;
+    }
+
+    public bool CheckIfHighScore(int score)
+    {
+        // load
+        string jsonString = PlayerPrefs.GetString("highScoreTable");
+        SavedHighscores highscores = JsonUtility.FromJson<SavedHighscores>(jsonString);
+
+        for (int i = 0; i < highscores.highScoreEntries.Count; i++)
+        {
+            if (score > highscores.highScoreEntries[i].score)
+                return true;
+        }
+        return false;
     }
 }

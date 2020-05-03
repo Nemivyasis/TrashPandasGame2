@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Level4.unity
     guid: 4997bf2b56dee8a43b3aec61bcf42238
   - enabled: 0
-    path: Assets/Scenes/AudioManagerScene.unity
+    path: 
     guid: d6a6f32e87ca9d243a476c99c79cf01f
   - enabled: 0
     path: Assets/Scenes/Bens BanksyScene.unity
@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/NewHighScore.unity
+    guid: 68a62d44e831ff649bff411702de78a9
   m_configObjects: {}

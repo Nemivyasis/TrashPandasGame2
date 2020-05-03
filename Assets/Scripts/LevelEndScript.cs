@@ -21,7 +21,13 @@ public class LevelEndScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (nextScene != "" && collision.gameObject.tag == "Player")
+        if (HighScore.instance.CheckIfHighScore(ScoreSingleton.instance.score))
+        {
+            HighScore.instance.postHighScoreScene = nextScene;
+            SceneManager.LoadScene("NewHighScore");
+
+        }
+        else if (nextScene != "" && collision.gameObject.tag == "Player")
             SceneManager.LoadScene(nextScene);
     }
 }
