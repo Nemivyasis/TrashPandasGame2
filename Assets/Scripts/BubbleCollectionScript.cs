@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class BubbleCollectionScript : MonoBehaviour
 {
-    public int score;
+    public int score = 0;
     public Text label;
     public AudioClip popFX;
     public AudioClip biteFX;
@@ -16,7 +16,7 @@ public class BubbleCollectionScript : MonoBehaviour
     {
         if(ScoreSingleton.instance != null)
         {
-            score = ScoreSingleton.instance.score;
+            ScoreSingleton.instance.score = score;
             UpdateScore(score);
         }
 
