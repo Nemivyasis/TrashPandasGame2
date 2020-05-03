@@ -17,6 +17,7 @@ public class BubbleCollectionScript : MonoBehaviour
         if(ScoreSingleton.instance != null)
         {
             score = ScoreSingleton.instance.score;
+            UpdateScore(score);
         }
 
         source = GetComponent<AudioSource>();
