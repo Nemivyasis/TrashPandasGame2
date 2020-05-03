@@ -64,7 +64,7 @@ public class BubbleCollectionScript : MonoBehaviour
             ScoreSingleton.instance.score = score;
         }
 
-        UpdateScore(score);
+        UpdateScore(ScoreSingleton.instance.score);
     }
 
     void DelayReloadScene ()
