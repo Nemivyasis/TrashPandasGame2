@@ -22,7 +22,7 @@ EditorBuildSettings:
     guid: 4997bf2b56dee8a43b3aec61bcf42238
   - enabled: 0
     path: 
-    guid: d6a6f32e87ca9d243a476c99c79cf01f
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/Bens BanksyScene.unity
     guid: 6ca1c18ac444cdf41b661a7e91dddcde
@@ -32,10 +32,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NewHighScore.unity
     guid: 68a62d44e831ff649bff411702de78a9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HighScoreMenu.unity
     guid: eb382c560ee7552429b0b65a2ca39183
   m_configObjects: {}

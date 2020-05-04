@@ -298,7 +298,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45787f87bcd3a846a070f31776df5cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  postHighScoreScene: 
 --- !u!4 &1902183000
 Transform:
   m_ObjectHideFlags: 0
@@ -588,7 +587,7 @@ PrefabInstance:
     - target: {fileID: 180355385761884115, guid: 8b29605355978484e9128f8ca65c0d0f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 13.599945
+      value: 13.599976
       objectReference: {fileID: 0}
     - target: {fileID: 351326754006787435, guid: 8b29605355978484e9128f8ca65c0d0f,
         type: 3}
@@ -868,7 +867,7 @@ PrefabInstance:
     - target: {fileID: 1865534056789583729, guid: 8b29605355978484e9128f8ca65c0d0f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 13.599945
+      value: 13.599976
       objectReference: {fileID: 0}
     - target: {fileID: 1948406911238695562, guid: 8b29605355978484e9128f8ca65c0d0f,
         type: 3}
