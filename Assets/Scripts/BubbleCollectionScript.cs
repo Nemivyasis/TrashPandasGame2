@@ -31,12 +31,12 @@ public class BubbleCollectionScript : MonoBehaviour
             AddScore();
             collider.gameObject.SetActive(false);
         }
-        if (collider.gameObject.tag == "Damager")
+        /*if (collider.gameObject.tag == "Damager")
         {
 
             source.PlayOneShot(biteFX);
             Invoke("DelayReloadScene", 0.3f);
-        }
+        }*/
 
     }
 
