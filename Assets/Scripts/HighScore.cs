@@ -5,7 +5,24 @@ using UnityEngine.UI;
 
 public class HighScore : MonoBehaviour
 {
-    public static HighScore instance;
+    private static HighScore instance;
+    public static HighScore Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<HighScore>();
+                if (instance == null)
+                {
+                    GameObject g = new GameObject();
+                    instance = g.AddComponent<HighScore>();
+                    DontDestroyOnLoad(g);
+                }
+            }
+            return instance;
+        }
+    }
 
     private List<Transform> highScoreEntryTransformList;
     public string postHighScoreScene;
@@ -20,6 +37,7 @@ public class HighScore : MonoBehaviour
             return;
         }
         instance = this;
+        DontDestroyOnLoad(gameObject);
 
         string jsonString = PlayerPrefs.GetString("highScoreTable");
         SavedHighscores highscores = JsonUtility.FromJson<SavedHighscores>(jsonString);
