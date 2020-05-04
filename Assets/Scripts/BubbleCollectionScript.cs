@@ -14,9 +14,9 @@ public class BubbleCollectionScript : MonoBehaviour
 
     void Awake()
     {
-        if(ScoreSingleton.instance != null)
+        if(ScoreSingleton.Instance != null)
         {
-            ScoreSingleton.instance.score = score;
+            ScoreSingleton.Instance.score = score;
             UpdateScore(score);
         }
 
@@ -59,12 +59,12 @@ public class BubbleCollectionScript : MonoBehaviour
     {
         score += 100;
 
-        if (ScoreSingleton.instance != null)
+        if (ScoreSingleton.Instance != null)
         {
-            ScoreSingleton.instance.score = score;
+            ScoreSingleton.Instance.score = score;
         }
 
-        UpdateScore(ScoreSingleton.instance.score);
+        UpdateScore(ScoreSingleton.Instance.score);
     }
 
     void DelayReloadScene ()

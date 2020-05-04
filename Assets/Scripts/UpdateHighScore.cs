@@ -9,6 +9,6 @@ public class UpdateHighScore : MonoBehaviour
 
     void Awake()
     {
-        scoreNumObject.text = "" + ScoreSingleton.instance.score;
+        scoreNumObject.text = "" + ScoreSingleton.Instance.score;
     }
 }

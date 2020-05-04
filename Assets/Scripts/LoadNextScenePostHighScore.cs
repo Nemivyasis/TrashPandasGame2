@@ -14,7 +14,7 @@ public class LoadNextScenePostHighScore : MonoBehaviour
     {
         playerName = nameInput.text;
 
-        HighScore.instance.AddHighScoreEntry(ScoreSingleton.instance.score, playerName);
+        HighScore.instance.AddHighScoreEntry(ScoreSingleton.Instance.score, playerName);
         SceneManager.LoadScene(HighScore.instance.postHighScoreScene);
     }
 }

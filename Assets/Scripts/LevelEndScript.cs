@@ -24,7 +24,7 @@ public class LevelEndScript : MonoBehaviour
         if (collision.gameObject.tag != "Player")
             return;
 
-        if (HighScore.instance.CheckIfHighScore(ScoreSingleton.instance.score))
+        if (HighScore.instance.CheckIfHighScore(ScoreSingleton.Instance.score))
         {
             HighScore.instance.postHighScoreScene = nextScene;
             SceneManager.LoadScene("NewHighScore");
